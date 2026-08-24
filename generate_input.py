@@ -33,6 +33,7 @@ payload = {
     "confidence_reason": get("CONFIDENCE_REASON"),
     "signal_url": get("SIGNAL_URL"),
     "signal_title": get("SIGNAL_TITLE"),
+    "pr_summary_short": get("PR_SUMMARY_SHORT"),
 }
 
 with open("card_input.json", "w") as f:
