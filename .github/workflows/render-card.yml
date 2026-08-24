@@ -1,0 +1,114 @@
+name: Render Triangulation Card
+
+# Manual trigger only, for now. This produces one card from numbers you
+# supply by hand. It does NOT read Heat Index/SOV/Resonance data itself —
+# that's the combiner script (see /areas/triangulation.md backlog), which
+# is still blocked on Heat Index history banking. This workflow exists so
+# render_card.py has a durable, version-controlled home and can be run
+# from anywhere without needing a chat session's sandbox.
+on:
+  workflow_dispatch:
+    inputs:
+      vendor:
+        description: "Vendor name (e.g. 'NiCE / RingCentral')"
+        required: true
+        type: string
+      tier:
+        description: "Tier"
+        required: true
+        type: choice
+        options:
+          - Confirmed
+          - Early
+          - Static
+      movement:
+        description: "Movement score (0-100). Leave blank if pending."
+        required: false
+        type: string
+      visibility:
+        description: "Visibility score (0-100). Leave blank if pending."
+        required: false
+        type: string
+      proof:
+        description: "Proof score (0-100). Leave blank if pending."
+        required: false
+        type: string
+      pillar:
+        description: "Pillar label (e.g. 'UC / CCaaS'). Optional."
+        required: false
+        type: string
+      confidence:
+        description: "Confidence badge. Leave blank to omit."
+        required: false
+        type: choice
+        options:
+          - ""
+          - High
+          - Moderate
+          - Low
+      confidence_reason:
+        description: "One-line reason for the confidence rating. Optional."
+        required: false
+        type: string
+      signal_url:
+        description: "Live URL of the linked Signal+/Pattern/Teardown, if one exists. Leave blank to omit the link."
+        required: false
+        type: string
+      signal_title:
+        description: "Title of the linked piece. Optional."
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build card input JSON
+        env:
+          VENDOR: ${{ inputs.vendor }}
+          TIER: ${{ inputs.tier }}
+          MOVEMENT: ${{ inputs.movement }}
+          VISIBILITY: ${{ inputs.visibility }}
+          PROOF: ${{ inputs.proof }}
+          PILLAR: ${{ inputs.pillar }}
+          CONFIDENCE: ${{ inputs.confidence }}
+          CONFIDENCE_REASON: ${{ inputs.confidence_reason }}
+          SIGNAL_URL: ${{ inputs.signal_url }}
+          SIGNAL_TITLE: ${{ inputs.signal_title }}
+        run: python generate_input.py
+
+      - name: Render SVG
+        id: render
+        run: |
+          SLUG=$(echo "${{ inputs.vendor }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9' '-' | sed 's/-\+/-/g; s/^-//; s/-$//')
+          DATE=$(date -u +%Y-%m-%d)
+          mkdir -p output
+          OUT="output/${SLUG}-${DATE}.svg"
+          python render_card.py --json card_input.json --out "$OUT"
+          echo "path=$OUT" >> "$GITHUB_OUTPUT"
+
+      - name: Upload as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: triangulation-card-${{ inputs.vendor }}
+          path: ${{ steps.render.outputs.path }}
+
+      - name: Commit card to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "${{ steps.render.outputs.path }}"
+          git diff --staged --quiet || git commit -m "Render card: ${{ inputs.vendor }} (${{ inputs.tier }})"
+          git pull --rebase origin main
+          git push
