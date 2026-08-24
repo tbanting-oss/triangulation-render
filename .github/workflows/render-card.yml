@@ -58,6 +58,10 @@ on:
         description: "Title of the linked piece. Optional."
         required: false
         type: string
+      pr_summary_short:
+        description: "One-sentence factual PR synopsis, ~90 char cap (PRLog's prSummaryShort). Leave blank to omit the card's summary line entirely."
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -86,6 +90,7 @@ jobs:
           CONFIDENCE_REASON: ${{ inputs.confidence_reason }}
           SIGNAL_URL: ${{ inputs.signal_url }}
           SIGNAL_TITLE: ${{ inputs.signal_title }}
+          PR_SUMMARY_SHORT: ${{ inputs.pr_summary_short }}
         run: python generate_input.py
 
       - name: Render SVG
