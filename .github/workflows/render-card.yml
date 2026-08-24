@@ -97,11 +97,12 @@ jobs:
           OUT="output/${SLUG}-${DATE}.svg"
           python render_card.py --json card_input.json --out "$OUT"
           echo "path=$OUT" >> "$GITHUB_OUTPUT"
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
 
       - name: Upload as workflow artifact
         uses: actions/upload-artifact@v4
         with:
-          name: triangulation-card-${{ inputs.vendor }}
+          name: triangulation-card-${{ steps.render.outputs.slug }}
           path: ${{ steps.render.outputs.path }}
 
       - name: Commit card to repo
