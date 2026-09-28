@@ -99,10 +99,14 @@ TIER_COLOUR = {
 # solve it: a short source line under the value (Heat Index/SOV/Resonance),
 # not a separate lookup. Wording matches render_legend_svg's TIER rows
 # verbatim so the card and the legend never drift apart.
+# Corrected 28 Sep 2026: Early and Static previously read "two of three
+# signals present" / "fewer than two legs", which is not the locked rule
+# (Early = Movement present alone or with one other; Static = no Movement,
+# whatever Visibility or Proof show). See /areas/triangulation.md.
 TIER_GLOSS = {
     "Confirmed": "All three signals agree",
-    "Early": "Two of three signals present",
-    "Static": "Not enough signal yet",
+    "Early": "Search movement, plus at most one more signal",
+    "Static": "No search movement signal yet",
 }
 
 RING_RADII = {"movement": 92, "visibility": 72, "proof": 52}
@@ -397,8 +401,8 @@ def render_legend_svg(highlight_tier: Optional[str] = None) -> str:
     tier_y = y + 4
     tier_rows = [
         ("Confirmed", TIER_COLOUR["Confirmed"], "Confirmed", "All three legs agree - the strongest read available."),
-        ("Early", TIER_COLOUR["Early"], "Early", "Two of three legs present, not yet all agreeing."),
-        ("Static", TIER_COLOUR["Static"], "Static / pending", "Fewer than two legs have real data yet - shown as a dash, not a zero."),
+        ("Early", TIER_COLOUR["Early"], "Early", "Search movement is present, with at most one other signal confirming it."),
+        ("Static", TIER_COLOUR["Static"], "Static / pending", "No search movement signal yet. A dash means not measured, not zero."),
     ]
     tier_blocks = [f"""
 <text x="34" y="{tier_y}" font-family="Inter, sans-serif" font-weight="800"
