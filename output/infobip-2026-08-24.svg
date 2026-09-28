@@ -1,5 +1,5 @@
-<svg viewBox="0 0 340 470" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
-  <rect x="0" y="0" width="340" height="470" rx="16" fill="#f5f2f0"/>
+<svg viewBox="0 0 340 486" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+  <rect x="0" y="0" width="340" height="486" rx="16" fill="#f5f2f0"/>
   <rect x="0" y="0" width="340" height="6" rx="3" fill="#3b408c"/>
 
   <text x="170" y="26" text-anchor="middle" font-weight="800" font-size="19"
@@ -17,32 +17,35 @@
     <circle cx="170" cy="210" r="52" fill="none" stroke="#40e0d1" stroke-width="14" stroke-linecap="round" stroke-dasharray="147.03 179.70" transform="rotate(-90 170 210)" opacity="0.95"/>
   </g>
 
+  
   <text x="170" y="330" text-anchor="middle" font-weight="700" font-size="12"
         fill="#3b408c" letter-spacing="0.08em">EARLY</text>
+  <text x="170" y="346" text-anchor="middle" font-family="Inter, sans-serif"
+        font-weight="500" font-size="10" fill="#8b8494">Search movement, plus at most one more signal</text>
 
   
-    <text x="65" y="354" text-anchor="middle" font-family="Inter, sans-serif"
+    <text x="65" y="370" text-anchor="middle" font-family="Inter, sans-serif"
           font-weight="700" font-size="10" fill="#8b8494" letter-spacing="0.03em"
           text-transform="uppercase">Movement</text>
-    <text x="65" y="376" text-anchor="middle" font-family="Inter, sans-serif"
+    <text x="65" y="392" text-anchor="middle" font-family="Inter, sans-serif"
           font-weight="800" font-size="20" fill="#8b8494">—</text>
-    <text x="65" y="390" text-anchor="middle" font-family="Inter, sans-serif"
+    <text x="65" y="406" text-anchor="middle" font-family="Inter, sans-serif"
           font-weight="500" font-size="9" fill="#8b8494" letter-spacing="0.03em"
           text-transform="uppercase">Heat Index . pending</text>
-    <text x="170" y="354" text-anchor="middle" font-family="Inter, sans-serif"
+    <text x="170" y="370" text-anchor="middle" font-family="Inter, sans-serif"
           font-weight="700" font-size="10" fill="#8b8494" letter-spacing="0.03em"
           text-transform="uppercase">Visibility</text>
-    <text x="170" y="376" text-anchor="middle" font-family="Inter, sans-serif"
+    <text x="170" y="392" text-anchor="middle" font-family="Inter, sans-serif"
           font-weight="800" font-size="20" fill="#8b8494">—</text>
-    <text x="170" y="390" text-anchor="middle" font-family="Inter, sans-serif"
+    <text x="170" y="406" text-anchor="middle" font-family="Inter, sans-serif"
           font-weight="500" font-size="9" fill="#8b8494" letter-spacing="0.03em"
           text-transform="uppercase">SOV . pending</text>
-    <text x="275" y="354" text-anchor="middle" font-family="Inter, sans-serif"
+    <text x="275" y="370" text-anchor="middle" font-family="Inter, sans-serif"
           font-weight="700" font-size="10" fill="#40e0d1" letter-spacing="0.03em"
           text-transform="uppercase">Proof</text>
-    <text x="275" y="376" text-anchor="middle" font-family="Inter, sans-serif"
+    <text x="275" y="392" text-anchor="middle" font-family="Inter, sans-serif"
           font-weight="800" font-size="20" fill="#40e0d1">45</text>
-    <text x="275" y="390" text-anchor="middle" font-family="Inter, sans-serif"
+    <text x="275" y="406" text-anchor="middle" font-family="Inter, sans-serif"
           font-weight="500" font-size="9" fill="#8b8494" letter-spacing="0.03em"
           text-transform="uppercase">Resonance</text>
   
